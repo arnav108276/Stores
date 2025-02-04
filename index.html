@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Store Locations</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7iRi7Beh6AcbeEgcFVV7lFxk6d5ouMP8&callback=initMap" async defer></script>
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: { lat: 30.3934, lng: 77.9616 } // Default center (UPES Bidholi)
+            });
+
+            var locations = [
+                { name: "UPES Bidholi", lat: 30.3934, lng: 77.9616, url: "https://www.google.com/maps/dir//UPES+Bidholi/" },
+                { name: "Goel Book Depot", lat: 30.5352, lng: 77.7274, url: "https://www.google.com/maps/dir//goel+book+depot+dakpathar/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x390f2e2cf9e5a9d7:0x22a4b2be70000000?sa=X&ved=1t:3061&ictx=111" },
+                { name: "UPES Kandoli", lat: 30.3428, lng: 77.9562, url: "https://www.google.com/maps/dir//UPES+Kandoli/" }
+            ];
+
+            locations.forEach(function(store) {
+                var marker = new google.maps.Marker({
+                    position: { lat: store.lat, lng: store.lng },
+                    map: map,
+                    title: store.name
+                });
+
+                var infoWindow = new google.maps.InfoWindow({
+                    content: `<h3>${store.name}</h3><br>
+                              <a href="${store.url}" target="_blank">Get Directions</a>`
+                });
+
+                marker.addListener('click', function() {
+                    window.open(store.url, '_blank');
+                });
+            });
+        }
+    </script>
+    <style>
+        #map { height: 100vh; width: 100%; }
+    </style>
+</head>
+<body onload="initMap()">
+    <div id="map"></div>
+</body>
+</html>
